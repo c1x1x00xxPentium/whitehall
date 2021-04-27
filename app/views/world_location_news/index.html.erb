@@ -1,15 +1,23 @@
 <% page_title @world_location.title %>
-<% page_class "world-locations-show" %>
+<% page_class "world-locations-show govuk-width-container" %>
 <% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
 
 <%= content_tag_for(:article, @world_location) do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
+      <%= render "govuk_publishing_components/components/title", {
+        context: "Publication",
+        title: "My page title"
+      } %>
+
       <%= render partial: 'shared/heading',
-                locals: { type: "World location news",
-                          heading: @world_location.title,
-                          extra: true, big: true } %>
-      <aside class="heading-extra">
+          locals: {
+            type: 'World location news',
+            heading: @world_location.title,
+            extra: true,
+            big: true,
+        } %>
+      <aside class="heading-extra test">
         <div class="inner-heading">
           <%= render 'shared/available_languages', object: @world_location %>
           <% lang = "lang=en" unless I18n.locale.eql?(:en) %>
@@ -24,17 +32,19 @@
       <section class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
         <% if @feature_list.any_current_features? %>
           <%= render partial: 'shared/featured',
-            collection: @feature_list.current_featured,
+            collection: @feature_list.current_featured, 
             as: :feature
           %>
         <% end %>
 
         <%= render partial: 'shared/recently_updated',
-                  locals: { recently_updated: @recently_updated,
-                            atom_url: atom_feed_url_for(@world_location),
-                            extra_class: 'panel',
-                            see_all_link: latest_path(world_locations: [@world_location]),
-                            documents_source: Locale.current.english? ? 'rummager' : nil } %>
+          locals: {
+            recently_updated: @recently_updated,
+            atom_url: atom_feed_url_for(@world_location),
+            extra_class: 'panel',
+            see_all_link: latest_path(world_locations: [@world_location]),
+            documents_source: Locale.current.english? ? 'rummager' : nil,
+        } %>
       </section>
     </div>
   </div>
@@ -42,9 +52,13 @@
   <div class="block our-mission">
     <div class="inner-block">
       <section class="article-section">
-        <h1 class="keyline-header"><%= t('world_location.headings.mission') %></h1>
+        <h1 class="keyline-header">
+          <%= t('world_location.headings.mission') %>
+        </h1>
         <p>
-          <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
+          <span
+            class="mission_statement"
+          ><%= govspeak_to_html(@world_location.mission_statement) %></span>
         </p>
       </section>
     </div>
@@ -53,16 +67,19 @@
   <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
     <div class="block documents-grid">
       <div class="inner-block">
-        <h1 class="block-title"><%= t('world_location.headings.documents') %></h1>
+        <h1 class="block-title">
+          <%= t('world_location.headings.documents') %>
+        </h1>
         <% if @announcements.any? %>
           <div class="content">
-            <%= render partial: "shared/document_list_from_rummager", locals: {
-              documents: @announcements,
-              type: :announcements,
-              documents_count: @announcements.count,
-              heading: t('world_location.headings.announcements'),
-              world_location_news: "1",
-              see_all_text: t_see_all_our(:announcement)
+            <%= render partial: 'shared/document_list_from_rummager',
+              locals: {
+                documents: @announcements,
+                type: :announcements,
+                documents_count: @announcements.count,
+                heading: t('world_location.headings.announcements'),
+                world_location_news: '1',
+                see_all_text: t_see_all_our(:announcement),
             } %>
           </div>
         <% end %>
@@ -70,7 +87,10 @@
           <section id="publications" class="document-block documents-<%= document_block_counter %>">
             <h1><%= t('world_location.headings.publications') %></h1>
             <div class="content">
-              <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
+              <%= render partial: "shared/list_description", 
+                locals: { 
+                  editions: @non_statistics_publications 
+              } %>
               <p class="see-all">
                 <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location), class: "govuk-link" %>
               </p>
@@ -78,10 +98,13 @@
           </section>
         <% end %>
         <% if @statistics_publications.any? %>
-          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
+          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>" >
             <h1><%= t('world_location.headings.statistics') %></h1>
             <div class="content">
-              <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
+              <%= render partial: "shared/list_description",
+                locals: {
+                  editions: @statistics_publications
+              } %>
               <p class="see-all">
                 <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics'), class: "govuk-link" %>
               </p>

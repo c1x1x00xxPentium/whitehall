@@ -184,9 +184,9 @@
       .worldwide-organisation-detail,
       .contact {
         @include media(tablet) {
-          float: left;
-          display: inline;
-          width: $two-thirds;
+          // float: left;
+          // display: inline;
+          // width: $two-thirds;
         }
 
         h2 {
