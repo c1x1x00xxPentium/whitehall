@@ -25,4 +25,8 @@ class SocialMediaAccount < ApplicationRecord
   def display_name
     title.presence || service_name
   end
+
+  def missing_translations
+    super & socialable.non_english_translated_locales
+  end
 end
