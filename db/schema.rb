@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_135420) do
+ActiveRecord::Schema.define(version: 2021_04_22_151120) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -933,6 +933,16 @@ ActiveRecord::Schema.define(version: 2021_04_22_135420) do
     t.text "govspeak"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "social_media_account_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "social_media_account_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.index ["locale"], name: "index_social_media_account_translations_on_locale"
+    t.index ["social_media_account_id"], name: "index_9a53de61b0e824c8ce3da9dc8eb648e404cdfcde"
   end
 
   create_table "social_media_accounts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
