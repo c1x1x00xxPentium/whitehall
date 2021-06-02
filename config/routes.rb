@@ -223,7 +223,9 @@ Whitehall::Application.routes.draw do
             end
             post :reorder_for_home_page, on: :collection
           end
-          resources :social_media_accounts
+          resources :social_media_accounts do
+            resources :translations, controller: "social_media_account_translations", only: %i[create edit update destroy]
+          end
           resources :translations, controller: "organisation_translations"
           resources :promotional_features do
             resources :promotional_feature_items, as: :items, path: "items", except: [:index]
