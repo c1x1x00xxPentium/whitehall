@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_151120) do
+ActiveRecord::Schema.define(version: 2021_05_19_132020) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -935,7 +935,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_151120) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "social_media_account_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "social_media_account_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "social_media_account_id", null: false
     t.string "locale", null: false
     t.datetime "created_at", precision: 6, null: false
