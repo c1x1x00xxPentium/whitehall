@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_132020) do
+ActiveRecord::Schema.define(version: 2021_05_19_142020) do
 
   create_table "about_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "topical_event_id"
@@ -894,6 +894,19 @@ ActiveRecord::Schema.define(version: 2021_05_19_132020) do
     t.index ["role_id"], name: "index_role_appointments_on_role_id"
   end
 
+  create_table "role_appointments_backup", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string "content_id"
+    t.index ["ended_at"], name: "index_role_appointments_on_ended_at"
+    t.index ["person_id"], name: "index_role_appointments_on_person_id"
+    t.index ["role_id"], name: "index_role_appointments_on_role_id"
+  end
+
   create_table "role_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "role_id"
     t.string "locale"
@@ -941,6 +954,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_132020) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
+    t.string "url"
     t.index ["locale"], name: "index_social_media_account_translations_on_locale"
     t.index ["social_media_account_id"], name: "index_9a53de61b0e824c8ce3da9dc8eb648e404cdfcde"
   end

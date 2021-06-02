@@ -10,7 +10,7 @@ class SocialMediaAccount < ApplicationRecord
   validates :title, length: { maximum: 255 }
 
   include TranslatableModel
-  translates :title
+  translates :url, :title
 
   def republish_organisation_to_publishing_api
     if socialable_type == "Organisation" && socialable.persisted?
