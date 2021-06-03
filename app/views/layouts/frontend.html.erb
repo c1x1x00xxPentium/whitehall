@@ -1,13 +1,71 @@
 <%= render :layout => 'layouts/frontend_base' do %>
   <nav id="proposition-menu" class="no-proposition-name" aria-label="Departments and policy navigation">
-    <ul id="proposition-links">
-      <li><%= main_navigation_link_to "Departments", organisations_path %></li>
-      <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
-      <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
-      <li><%= main_navigation_link_to "Get involved", get_involved_path %></li>
-      <li class="clear-child"><a href="<%= CGI::escapeHTML('/search/policy-papers-and-consultations?content_store_document_type[]=open_consultations&content_store_document_type[]=closed_consultations') %>">Consultations</a></li>
-      <li><a href="/search/research-and-statistics">Statistics</a></li>
-      <li><a href="/news-and-communications">News and communications</a></li>
+    <ul id="proposition-links" data-module="gem-track-click">
+      <li>
+        <%= main_navigation_link_to "Departments",
+            organisations_path,
+            data: {
+              track_category: "headerClicked",
+              track_action: "departmentsLink",
+              track_label: organisations_path,
+              track_dimension: "Departments",
+              track_dimension_index: "29"
+            }
+        %>
+      </li>
+      <li>
+        <%= main_navigation_link_to "Worldwide",
+            world_locations_path(locale: :en),
+            data: {
+              track_category: "headerClicked",
+              track_action: "departmentsLink",
+              track_label: world_locations_path(locale: :en),
+              track_dimension_29: "Worldwide",
+            }
+        %>
+      </li>
+      <li>
+        <%= main_navigation_link_to "How government works",
+            how_government_works_path,
+            data: {
+              track_category: "headerClicked",
+              track_action: "departmentsLink",
+              track_label: how_government_works_path,
+              track_dimension_29: "How government works"
+            }
+        %>
+      </li>
+      <li>
+        <%= main_navigation_link_to "Get involved",
+            get_involved_path,
+            data: {
+              track_category: "headerClicked",
+              track_action: "departmentsLink",
+              track_label: get_involved_path,
+              track_dimension_29: "Get involved",
+            }
+        %>
+      </li>
+      <% consultations_path = CGI::escapeHTML('/search/policy-papers-and-consultations?content_store_document_type[]=open_consultations&content_store_document_type[]=closed_consultations') %>
+      <li class="clear-child"
+          data-track-category="headerClicked"
+          data-track-action="departmentsLink"
+          data-track-label="<%= consultations_path %>"
+          data-track-dimension-29="Consultations">
+        <a href="<%= consultations_path %>">Consultations</a>
+      </li>
+      <li data-track-category="headerClicked"
+          data-track-action="departmentsLink"
+          data-track-label="/search/research-and-statistics"
+          data-track-dimension-29="Statistics">
+        <a href="/search/research-and-statistics">Statistics</a>
+      </li>
+      <li data-track-category="headerClicked"
+          data-track-action="departmentsLink"
+          data-track-label="/news-and-communications"
+          data-track-dimension-29="News and communications">
+        <a href="/news-and-communications">News and communications</a>
+      </li>
     </ul>
   </nav>
   <main id="content" role="main" class="whitehall-content"<%= " lang=#{I18n.locale.to_s}" unless I18n.locale == :en %>>
