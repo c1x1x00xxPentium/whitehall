@@ -420,7 +420,9 @@ Whitehall::Application.routes.draw do
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::ActiveRecord,
+    GovukHealthcheck::RailsCache,
     GovukHealthcheck::SidekiqRedis,
+    Healthcheck::S3,
   )
 
   get "healthcheck/overdue" => "healthcheck#overdue"
