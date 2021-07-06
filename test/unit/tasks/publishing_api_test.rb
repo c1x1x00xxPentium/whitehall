@@ -68,26 +68,33 @@ class PublishingApiRake < ActiveSupport::TestCase
   end
 
   describe "republish" do
-    describe "#*_by_slug" do
-      let(:tasks) do
-        [
-          { name: "organisation_by_slug", model: "Organisation", factory: "organisation" },
-          { name: "person_by_slug", model: "Person", factory: "person" },
-          { name: "role_by_slug", model: "Role", factory: "role_without_organisations" },
-        ]
+    describe "#organisation_by_slug" do
+      let(:task) { Rake::Task["publishing_api:republish:organisation_by_slug"] }
+
+      test "republishes organisation by slug" do
+        record = create(:organisation)
+        Organisation.any_instance.expects(:publish_to_publishing_api)
+        task.invoke(record.slug)
       end
+    end
 
-      test "republishes record by slug" do
-        tasks.each do |task|
-          record = create(task[:factory]) # rubocop:disable Rails/SaveBang
-          model = task[:model].constantize
+    describe "#person_by_slug" do
+      let(:task) { Rake::Task["publishing_api:republish:person_by_slug"] }
 
-          model.any_instance.expects(:publish_to_publishing_api)
+      test "republishes person by slug" do
+        record = create(:person)
+        Person.any_instance.expects(:publish_to_publishing_api)
+        task.invoke(record.slug)
+      end
+    end
 
-          task = Rake::Task["publishing_api:republish:#{task[:name]}"]
-          task.invoke(record.slug)
-          task.reenable
-        end
+    describe "#role_by_slug" do
+      let(:task) { Rake::Task["publishing_api:republish:role_by_slug"] }
+
+      test "republishes role by slug" do
+        record = create(:role)
+        Role.any_instance.expects(:publish_to_publishing_api)
+        task.invoke(record.slug)
       end
     end
 
