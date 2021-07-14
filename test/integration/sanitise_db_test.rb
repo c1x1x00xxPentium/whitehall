@@ -84,7 +84,7 @@ private
 
   def run_script
     database, host, port, username, password = %w[database host port username password].map do |key|
-      ActiveRecord::Base.configurations[Rails.env][key]
+      ActiveRecord::Base.configurations.configs_for(env_name: Rails.env, name: key)
     end
 
     # Use the right port, if one is specified in the Rails
