@@ -194,6 +194,10 @@ class ActiveSupport::TestCase
     Pathname.new(Rails.root.join("test/fixtures"))
   end
 
+  def self.file_fixture_path
+    Pathname.new(Rails.root.join("test/fixtures"))
+  end
+
   def setup_fog_mock
     Fog.mock!
     ENV["AWS_REGION"] = "eu-west-1"
