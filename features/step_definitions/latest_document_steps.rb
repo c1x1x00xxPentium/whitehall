@@ -1,6 +1,6 @@
 Then(/^I can see some of the latest documents$/) do
   within("#recently-updated") do
-    assert_selector "header", text: "Latest"
+    assert_selector ".gem-c-heading", text: "Latest"
     assert has_link?("Policy on Topicals")
     assert has_link?("Examination of Events")
   end
@@ -33,5 +33,5 @@ Then(/^I can see a link back to the topical event page$/) do
 end
 
 Then(/^I can see links to get alerts$/) do
-  assert_selector ".feeds"
+  assert_selector ".gem-c-subscription-links"
 end
